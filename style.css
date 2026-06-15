@@ -1,0 +1,159 @@
+/* ========== 全局 ========== */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+    background: #f0f2f5;
+    color: #1a1a2e;
+    line-height: 1.6;
+    padding: 20px;
+}
+.container { max-width: 1100px; margin: 0 auto; }
+
+/* ========== 头部 ========== */
+header { text-align: center; margin-bottom: 24px; }
+header h1 { font-size: 28px; font-weight: 700; }
+.subtitle { color: #666; font-size: 14px; margin-top: 4px; }
+
+/* ========== 控制面板 ========== */
+.control-panel {
+    background: #fff; border-radius: 12px; padding: 20px;
+    margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+}
+.api-section { margin-bottom: 16px; }
+.api-section label { font-size: 14px; font-weight: 600; display: block; margin-bottom: 6px; }
+.api-input-row { display: flex; gap: 8px; align-items: center; }
+.api-input-row input {
+    flex: 1; padding: 8px 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 14px;
+}
+.api-input-row input:focus { outline: none; border-color: #4f46e5; }
+.btn-icon {
+    background: #f5f5f5; border: 1px solid #ddd; border-radius: 8px;
+    padding: 6px 10px; cursor: pointer; font-size: 16px;
+}
+.api-section small { color: #888; font-size: 12px; }
+.api-section a { color: #4f46e5; text-decoration: none; }
+
+/* 输入区 */
+.input-section label { font-size: 14px; font-weight: 600; display: block; margin-bottom: 6px; }
+textarea {
+    width: 100%; padding: 10px 12px; border: 1px solid #ddd; border-radius: 8px;
+    font-size: 14px; resize: vertical; font-family: inherit;
+}
+textarea:focus { outline: none; border-color: #4f46e5; }
+.button-group { display: flex; gap: 10px; margin-top: 10px; flex-wrap: wrap; }
+
+.btn-primary {
+    background: #4f46e5; color: #fff; border: none; padding: 10px 20px;
+    border-radius: 8px; font-size: 14px; cursor: pointer; font-weight: 600;
+}
+.btn-primary:hover { background: #4338ca; }
+.btn-primary:disabled { background: #a5a5a5; cursor: not-allowed; }
+.btn-secondary {
+    background: #fff; color: #4f46e5; border: 1px solid #4f46e5; padding: 10px 20px;
+    border-radius: 8px; font-size: 14px; cursor: pointer; font-weight: 600;
+}
+.btn-secondary:hover:not(:disabled) { background: #4f46e5; color: #fff; }
+.btn-secondary:disabled { color: #aaa; border-color: #ddd; cursor: not-allowed; }
+
+/* ========== 状态 & 冲突提示 ========== */
+.status-area, .conflict-area {
+    padding: 10px 16px; border-radius: 8px; margin-bottom: 16px;
+    font-size: 14px; display: none;
+}
+.status-area.success { display: block; background: #dcfce7; color: #166534; border: 1px solid #bbf7d0; }
+.status-area.error { display: block; background: #fee2e2; color: #991b1b; border: 1px solid #fecaca; }
+.status-area.loading { display: block; background: #e0e7ff; color: #3730a3; border: 1px solid #c7d2fe; }
+.conflict-area.has-conflict { display: block; background: #fef2f2; color: #991b1b; border: 1px solid #fca5a5; }
+.conflict-area.no-conflict { display: block; background: #f0fdf4; color: #166534; border: 1px solid #bbf7d0; }
+
+/* ========== 课表网格 ========== */
+.schedule-wrapper {
+    background: #fff; border-radius: 12px; padding: 20px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+}
+.schedule-header {
+    display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;
+}
+.schedule-header h2 { font-size: 18px; }
+.legend { display: flex; gap: 12px; font-size: 13px; }
+
+.schedule-grid {
+    position: relative;
+    display: grid;
+    grid-template-columns: 60px repeat(7, 1fr);
+    grid-template-rows: auto repeat(13, 40px);
+    gap: 1px;
+    background: #e5e7eb;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.cell {
+    background: #f9fafb; padding: 6px 4px; text-align: center;
+    font-size: 12px; display: flex; align-items: center; justify-content: center;
+}
+.cell.header { background: #4f46e5; color: #fff; font-weight: 600; font-size: 13px; }
+.cell.time-header { background: #f3f4f6; font-weight: 600; color: #374151; }
+
+.slot {
+    background: #fff; padding: 4px; text-align: center; font-size: 11px;
+    display: flex; align-items: center; justify-content: center;
+    min-height: 40px; cursor: default;
+}
+
+/* 课程块 */
+.slot.course {
+    background: #eef2ff; color: #3730a3; font-weight: 600;
+    border-left: 3px solid #4f46e5; padding: 2px 4px;
+    font-size: 11px; line-height: 1.3; word-break: break-all;
+    z-index: 2; position: relative;
+}
+.slot.course .course-name { font-size: 11px; }
+.slot.course .course-room { font-size: 10px; color: #6366f1; font-weight: 400; }
+
+/* 冲突 */
+.slot.course.conflict {
+    background: #fef2f2 !important; color: #991b1b;
+    border-left: 3px solid #ef4444 !important;
+}
+.slot.course.conflict::after {
+    content: '\26A0'; font-size: 10px; position: absolute; top: 1px; right: 2px;
+}
+
+/* 课程颜色轮换 */
+.slot.course:nth-of-type(7n+1) { background: #eef2ff; border-left-color: #4f46e5; color: #3730a3; }
+.slot.course:nth-of-type(7n+1) .course-room { color: #6366f1; }
+.slot.course:nth-of-type(7n+2) { background: #ecfdf5; border-left-color: #059669; color: #065f46; }
+.slot.course:nth-of-type(7n+2) .course-room { color: #10b981; }
+.slot.course:nth-of-type(7n+3) { background: #fef9c3; border-left-color: #d97706; color: #92400e; }
+.slot.course:nth-of-type(7n+3) .course-room { color: #f59e0b; }
+.slot.course:nth-of-type(7n+4) { background: #fce7f3; border-left-color: #db2777; color: #9d174d; }
+.slot.course:nth-of-type(7n+4) .course-room { color: #ec4899; }
+.slot.course:nth-of-type(7n+5) { background: #f0f9ff; border-left-color: #0284c7; color: #075985; }
+.slot.course:nth-of-type(7n+5) .course-room { color: #0ea5e9; }
+.slot.course:nth-of-type(7n+6) { background: #fdf4ff; border-left-color: #9333ea; color: #581c87; }
+.slot.course:nth-of-type(7n+6) .course-room { color: #a855f7; }
+.slot.course:nth-of-type(7n+7) { background: #fff7ed; border-left-color: #ea580c; color: #9a3412; }
+.slot.course:nth-of-type(7n+7) .course-room { color: #f97316; }
+
+.slot.course.conflict { background: #fef2f2 !important; color: #991b1b !important; border-left-color: #ef4444 !important; }
+.slot.course.conflict .course-room { color: #ef4444 !important; }
+
+/* ========== 示例按钮 ========== */
+.demo-section { text-align: center; margin-top: 20px; }
+.btn-demo {
+    background: none; border: 1px dashed #aaa; padding: 8px 16px;
+    border-radius: 8px; color: #888; cursor: pointer; font-size: 13px;
+}
+.btn-demo:hover { border-color: #4f46e5; color: #4f46e5; }
+
+/* ========== 加载动画 ========== */
+@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+.loading-text { animation: pulse 1.5s ease-in-out infinite; }
+
+/* ========== 响应式 ========== */
+@media (max-width: 768px) {
+    .schedule-grid { grid-template-columns: 50px repeat(7, 1fr); font-size: 10px; }
+    .cell, .slot { padding: 3px 2px; min-height: 30px; }
+    header h1 { font-size: 22px; }
+}

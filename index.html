@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>课表冲突检测器</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📅 课表冲突检测器</h1>
+            <p class="subtitle">粘贴课表文本，AI 自动解析，一键检测时间冲突</p>
+        </header>
+
+        <div class="control-panel">
+            <div class="input-section">
+                <label for="courseInput">粘贴课表文本（任意格式都行）：</label>
+                <textarea id="courseInput" rows="5" placeholder="支持的格式示例：&#10;高等数学 周一 8:00-9:40 A教101&#10;大学英语 周三10:00-11:40 B教203&#10;线性代数 周二、周四 14:00-15:40 C教305"></textarea>
+                <div class="button-group">
+                    <button id="parseBtn" class="btn-primary">🤖 AI 解析课表</button>
+                    <button id="detectBtn" class="btn-secondary" disabled>⚠️ 重新检测冲突</button>
+                    <button id="clearBtn" class="btn-secondary">清空</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="parseStatus" class="status-area"></div>
+        <div id="conflictResult" class="conflict-area"></div>
+
+        <div class="schedule-wrapper">
+            <div class="schedule-header">
+                <h2>📋 周课表</h2>
+                <div class="legend">
+                    <span class="legend-item normal">🟢 正常</span>
+                    <span class="legend-item conflict">🔴 冲突</span>
+                </div>
+            </div>
+            <div class="schedule-grid" id="scheduleGrid"></div>
+        </div>
+
+        <div class="demo-section">
+            <button id="demoBtn" class="btn-demo">📦 填入示例数据试试</button>
+        </div>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
