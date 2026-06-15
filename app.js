@@ -10,8 +10,13 @@
 var API_URL = 'https://api.deepseek.com/v1/chat/completions';
 var MODEL = 'deepseek-coder';
 
-// API Key 硬编码，用户无需手动输入
-var API_KEY = 'YOUR_DEEPSEEK_API_KEY';
+// API Key 从 localStorage 读取，用户通过页面输入框设置
+function getApiKey() {
+  var key = localStorage.getItem('ds_api_key');
+  if (!key) key = document.getElementById('apiKey').value.trim();
+  if (!key) throw new Error('请先输入 DeepSeek API Key');
+  return key;
+}
 
 /** 将时间统一为 HH:MM */
 function normalizeTime(str) {
@@ -46,7 +51,7 @@ async function parseSchedule(rawText) {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + API_KEY
+            'Authorization': 'Bearer ' + getApiKey()
         },
         body: JSON.stringify(body)
     });
@@ -170,6 +175,23 @@ function bindUI() {
     var clearBtn = document.getElementById('clearBtn');
     var statusDiv = document.getElementById('parseStatus');
     var conflictDiv = document.getElementById('conflictResult');
+    var apiKeyInput = document.getElementById('apiKey');
+    var saveKeyBtn = document.getElementById('saveKeyBtn');
+
+    // API Key 本地持久化
+    if (apiKeyInput) {
+        var saved = localStorage.getItem('ds_api_key');
+        if (saved) apiKeyInput.value = saved;
+        saveKeyBtn.addEventListener('click', function() {
+            var key = apiKeyInput.value.trim();
+            if (key && key.startsWith('sk-')) {
+                localStorage.setItem('ds_api_key', key);
+                alert('Key 已保存到本地');
+            } else {
+                alert('请输入有效的 DeepSeek API Key（sk- 开头）');
+            }
+        });
+    }
     var demoBtn = document.getElementById('demoBtn');
 
     // 解析课表

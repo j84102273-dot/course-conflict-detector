@@ -14,6 +14,14 @@
         </header>
 
         <div class="control-panel">
+            <div class="api-section">
+                <label for="apiKey">DeepSeek API Key：</label>
+                <div class="api-input-row">
+                    <input type="text" id="apiKey" placeholder="sk-... 输入你的Key，免费获取 → platform.deepseek.com">
+                    <button id="saveKeyBtn" class="btn-icon" title="保存">💾</button>
+                </div>
+                <small>Key 仅保存在浏览器本地，不上传服务器 · <a href="https://platform.deepseek.com" target="_blank">免费获取</a></small>
+            </div>
             <div class="input-section">
                 <label for="courseInput">粘贴课表文本（任意格式都行）：</label>
                 <textarea id="courseInput" rows="5" placeholder="支持的格式示例：&#10;高等数学 周一 8:00-9:40 A教101&#10;大学英语 周三10:00-11:40 B教203&#10;线性代数 周二、周四 14:00-15:40 C教305"></textarea>
